@@ -1,18 +1,22 @@
+using WebApi.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.RegisterDbContexts(builder.Configuration);
+builder.Services.RegisterSwagger();
+
 
 
 var app = builder.Build();
+app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+//x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "Silicon Web Api v1")
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
