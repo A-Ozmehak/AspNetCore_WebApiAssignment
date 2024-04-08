@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Entities;
+﻿using Infrastructure.Dtos;
+
+namespace Infrastructure.Entities;
 
 public class CourseEntity
 {
@@ -11,4 +13,19 @@ public class CourseEntity
     public string? LikesInNumbers { get; set; }
     public string? LikesInProcent { get; set; }
     public string? Author { get; set; }
+
+    public static implicit operator CourseEntity(CourseDto dto)
+    {
+        return new CourseEntity
+        {
+            Title = dto.Title,
+            Price = dto.Price,
+            DiscountPrice = dto.DiscountPrice,
+            Hours = dto.Hours,
+            IsBestSeller = dto.IsBestSeller,
+            LikesInNumbers = dto.LikesInNumbers,
+            Author = dto.Author,
+            LikesInProcent = dto.LikesInProcent,
+        };
+    }
 }
