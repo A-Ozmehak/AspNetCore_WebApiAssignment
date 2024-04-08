@@ -12,6 +12,8 @@ public class SubscribersController(DataContext context) : ControllerBase
 {
     private readonly DataContext _context = context;
 
+    #region POST
+
     [HttpPost]
     [UseApiKey]
     public async Task<IActionResult> Subscribe(SubscriberDto dto)
@@ -32,6 +34,10 @@ public class SubscribersController(DataContext context) : ControllerBase
 
         return BadRequest();
     }
+
+    #endregion
+
+    #region DELETE
 
     [HttpDelete]
     [UseApiKey]
@@ -54,4 +60,6 @@ public class SubscribersController(DataContext context) : ControllerBase
 
         return BadRequest();
     }
+
+    #endregion
 }
