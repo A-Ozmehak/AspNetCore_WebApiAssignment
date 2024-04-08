@@ -70,6 +70,42 @@ public class CoursesController(DataContext context) : ControllerBase
 
     #endregion
 
+    #region UPDATE
+
+    [HttpPut("{id}")]
+    [UseApiKey]
+    public async Task<IActionResult> Update(int id, CourseDto dto)
+    {
+        if (ModelState.IsValid)
+        {
+            var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == id);
+            if (course != null)
+            {
+                course.Title = dto.Title;
+                course.Price = dto.Price;
+                course.DiscountPrice = dto.DiscountPrice;
+                course.Hours = dto.Hours;
+                course.IsBestSeller = dto.IsBestSeller;
+                course.LikesInNumbers = dto.LikesInNumbers;
+                course.LikesInProcent = dto.LikesInProcent;
+                course.Author = dto.Author;
+
+
+                _context.Courses.Update(course);
+                await _context.SaveChangesAsync();
+                return Ok(CourseFactory.Create(course));
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        return BadRequest(ModelState);
+    }
+
+    #endregion
+
     #region DELETE
 
     [HttpDelete]
