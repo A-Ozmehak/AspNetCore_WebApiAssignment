@@ -1,9 +1,7 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.Dtos;
 using Infrastructure.Entities;
-using Infrastructure.Factories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApi.Filters;
 
 namespace WebApi.Controllers;
