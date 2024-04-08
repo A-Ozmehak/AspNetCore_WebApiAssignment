@@ -32,4 +32,26 @@ public class SubscribersController(DataContext context) : ControllerBase
 
         return BadRequest();
     }
+
+    [HttpDelete]
+    [UseApiKey]
+    public async Task<IActionResult> DeleteSubscription(string email)
+    {
+        if (ModelState.IsValid)
+        {
+            var subscriber = await _context.Subscribers.FirstOrDefaultAsync(x => x.Email == email);
+            if (subscriber != null)
+            {
+                _context.Subscribers.Remove(subscriber);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        return BadRequest();
+    }
 }
