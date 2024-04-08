@@ -12,6 +12,8 @@ public class SubscribersController(DataContext context) : ControllerBase
 {
     private readonly DataContext _context = context;
 
+    #region POST
+
     [HttpPost]
     [UseApiKey]
     public async Task<IActionResult> Subscribe(SubscriberDto dto)
@@ -32,4 +34,32 @@ public class SubscribersController(DataContext context) : ControllerBase
 
         return BadRequest();
     }
+
+    #endregion
+
+    #region DELETE
+
+    [HttpDelete]
+    [UseApiKey]
+    public async Task<IActionResult> DeleteSubscription(string email)
+    {
+        if (ModelState.IsValid)
+        {
+            var subscriber = await _context.Subscribers.FirstOrDefaultAsync(x => x.Email == email);
+            if (subscriber != null)
+            {
+                _context.Subscribers.Remove(subscriber);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        return BadRequest();
+    }
+
+    #endregion
 }
