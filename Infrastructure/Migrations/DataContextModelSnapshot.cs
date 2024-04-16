@@ -60,6 +60,12 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Author")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CourseBgImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DiscountPrice")
                         .HasColumnType("nvarchar(max)");
 

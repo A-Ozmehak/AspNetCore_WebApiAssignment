@@ -81,6 +81,8 @@ public class CoursesController(DataContext context) : ControllerBase
             var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == id);
             if (course != null)
             {
+                course.CourseImage = dto.Image;
+                course.CourseBgImage = dto.BgImage;
                 course.Title = dto.Title;
                 course.Price = dto.Price;
                 course.DiscountPrice = dto.DiscountPrice;

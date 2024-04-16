@@ -5,6 +5,8 @@ namespace Infrastructure.Entities;
 public class CourseEntity
 {
     public int Id { get; set; }
+    public string? CourseImage { get; set; }
+    public string? CourseBgImage { get; set; }
     public string Title { get; set; } = null!;
     public string? Price { get; set; }
     public string? DiscountPrice { get; set; }
@@ -18,6 +20,8 @@ public class CourseEntity
     {
         return new CourseEntity
         {
+            CourseBgImage = dto.BgImage,
+            CourseImage = dto.Image,
             Title = dto.Title,
             Price = dto.Price,
             DiscountPrice = dto.DiscountPrice,
