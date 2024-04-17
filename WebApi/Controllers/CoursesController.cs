@@ -2,6 +2,7 @@
 using Infrastructure.Dtos;
 using Infrastructure.Entities;
 using Infrastructure.Factories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Filters;
@@ -10,6 +11,8 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[UseApiKey]
+[Authorize]
 public class CoursesController(DataContext context) : ControllerBase
 {
     private readonly DataContext _context = context;
@@ -17,7 +20,6 @@ public class CoursesController(DataContext context) : ControllerBase
     #region GET
 
     [HttpGet]
-    [UseApiKey]
     public async Task<IActionResult> GetAll()
     {
         if (ModelState.IsValid)
@@ -30,7 +32,6 @@ public class CoursesController(DataContext context) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [UseApiKey]
     public async Task<IActionResult> GetOne(int id)
     {
         if (ModelState.IsValid)
@@ -50,7 +51,6 @@ public class CoursesController(DataContext context) : ControllerBase
     #region CREATE
 
     [HttpPost]
-    [UseApiKey]
     public async Task<IActionResult> Create(CourseDto dto)
     {
         if (ModelState.IsValid)
@@ -73,7 +73,6 @@ public class CoursesController(DataContext context) : ControllerBase
     #region UPDATE
 
     [HttpPut("{id}")]
-    [UseApiKey]
     public async Task<IActionResult> Update(int id, CourseDto dto)
     {
         if (ModelState.IsValid)
@@ -109,7 +108,6 @@ public class CoursesController(DataContext context) : ControllerBase
     #region DELETE
 
     [HttpDelete]
-    [UseApiKey]
     public async Task<IActionResult> Delete(int id)
     {
         if (ModelState.IsValid)
