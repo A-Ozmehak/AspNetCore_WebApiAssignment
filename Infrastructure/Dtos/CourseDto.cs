@@ -2,6 +2,8 @@
 
 public class CourseDto
 {
+    public string? Image { get; set; }
+    public string? BgImage { get; set; }
     public string Title { get; set; } = null!;
     public string? Price { get; set; }
     public string? DiscountPrice { get; set; }

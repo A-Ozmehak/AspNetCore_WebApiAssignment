@@ -12,6 +12,8 @@ public static class CourseFactory
         {  
             return new CourseEntity()
             {
+               CourseImage = dto.Image,
+               CourseBgImage = dto.BgImage,
                Title = dto.Title,
                Price = dto.Price,
                DiscountPrice = dto.DiscountPrice,
@@ -33,6 +35,8 @@ public static class CourseFactory
         {
             return new CourseDto
             {
+                Image = entity.CourseImage,
+                BgImage = entity.CourseBgImage,
                 Title = entity.Title,
                 Price = entity.Price,
                 DiscountPrice = entity.DiscountPrice,
