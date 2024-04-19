@@ -1,9 +1,12 @@
-﻿namespace Infrastructure.Dtos;
+﻿using Infrastructure.Entities;
+
+namespace Infrastructure.Dtos;
 
 public class CourseDto
 {
-    public string? Image { get; set; }
-    public string? BgImage { get; set; }
+    public int Id { get; set; }
+    public string? CourseImage { get; set; }
+    public string? CourseBgImage { get; set; }
     public string Title { get; set; } = null!;
     public string? Price { get; set; }
     public string? DiscountPrice { get; set; }
@@ -12,4 +15,7 @@ public class CourseDto
     public string? LikesInNumbers { get; set; }
     public string? LikesInProcent { get; set; }
     public string? Author { get; set; }
+    public bool isDigital { get; set; }
+
+    public string Category { get; set; } = null!;
 }

@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.Dtos;
-using Infrastructure.Entities;
 using Infrastructure.Factories;
+using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,15 +20,31 @@ public class CoursesController(DataContext context) : ControllerBase
     #region GET
 
     [HttpGet]
+    //public async Task<IActionResult> GetAll()
+    //{
+    //    if (ModelState.IsValid)
+    //    {
+    //        var courses = await _context.Courses.OrderByDescending(c => c.Id).ToListAsync();
+    //        return Ok(courses);
+    //    }
+    //    return BadRequest();
+        
+    //}
+
     public async Task<IActionResult> GetAll()
     {
-        if (ModelState.IsValid)
+        var query = _context.Courses.Include(i => i.Category).AsQueryable();
+        query = query.OrderByDescending(o => o.LastUpdated);
+
+        var courses = await query.ToListAsync();
+
+        var response = new CourseResult
         {
-            var courses = await _context.Courses.OrderByDescending(c => c.Id).ToListAsync();
-            return Ok(courses);
-        }
-        return BadRequest();
-        
+            Succeeded = true,
+            Courses = CourseFactory.Create(courses),
+        };
+
+        return Ok(response);
     }
 
     [HttpGet("{id}")]
@@ -80,8 +96,8 @@ public class CoursesController(DataContext context) : ControllerBase
             var course = await _context.Courses.FirstOrDefaultAsync(x => x.Id == id);
             if (course != null)
             {
-                course.CourseImage = dto.Image;
-                course.CourseBgImage = dto.BgImage;
+                course.CourseImage = dto.CourseImage;
+                course.CourseBgImage = dto.CourseBgImage;
                 course.Title = dto.Title;
                 course.Price = dto.Price;
                 course.DiscountPrice = dto.DiscountPrice;

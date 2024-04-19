@@ -8,4 +8,5 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     public DbSet<CourseEntity> Courses { get; set; }
     public DbSet<SubscriberEntity> Subscribers { get; set; }
     public DbSet<ContactEntity> Contacts { get; set; }
+    public DbSet<CategoryEntity> Categories { get; set; }
 }
